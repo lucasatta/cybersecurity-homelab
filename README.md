@@ -1,2 +1,3 @@
-# cybersecurity-homelab
-Hands-on cybersecurity homelab for networking, linux, traffic analysis and security practice
+# Cybersecurity homelab
+
+This repository documents my hands-on cybersecurity learning journey using a personal Kali Linux and Ubuntu Server lab.
