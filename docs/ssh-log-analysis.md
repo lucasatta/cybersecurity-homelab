@@ -1,12 +1,12 @@
 # SSH Log Analysis
 
 ## Objective
-The objective of this lab is to analyze SSh authentication events on Ubuntu Server and practice basic log analysis using Linux command-line tools.
+The objective of this lab is to analyze SSH authentication events on Ubuntu Server and practice basic log analysis using Linux command-line tools.
 
 ## Log Source
 The analysis was performed using the Ubuntu authentication log:
 
-`/var/logauth.log`
+`/var/log/auth.log`
 
 The main tools used were:
 
@@ -20,7 +20,7 @@ The main tools used were:
 ## Failed Login Analysis
 Failed SSH authentication attempts were generated from Kali Linux against the Ubuntu Server.
 To identify failed password authentication events, I filtered the authentication log using:
-`sudo grep "Failed password" /va/log/auth.log`
+`sudo grep "Failed password" /var/log/auth.log`
 
 I then filtered the events for a specific user and extracted the source IP address:
 `sudo grep "Failed password for luca" /var/log/auth.log | awk '{print $9}'`
@@ -49,7 +49,7 @@ The timestamp, username, source IP address and authentication result can therefo
 
 ## What I Learned
 - How SSH authentication events are recorded in Linux logs;
-- How to identify succesful and failed SSH login attempts;
+- How to identify successful and failed SSH login attempts;
 - How to filter log entries using command-line tools such ad `grep`, `awk`, `sort` and `uniq`;
 - How to count authentication attempts by source IP address;
 - How timestamps and multiple log events can be correlated to reconstruct authentication activity.
