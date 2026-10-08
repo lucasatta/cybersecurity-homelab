@@ -1,7 +1,7 @@
 # Wireshark Traffic Analysis
 
 ## Objective
-The objective of this lab is to observe and analyze network traffic genereted between Kali Linux and Ubuntu Server using Wireshark.
+The objective of this lab is to observe and analyze network traffic generated between Kali Linux and Ubuntu Server using Wireshark.
 
 ## Capture Setup
 Wireshark was used on the Kali Linux internal interface connected to the `cyberlab` network.

@@ -28,7 +28,7 @@ I then filtered the events for a specific user and extracted the source IP addre
 To count failed login attempts by source IP:
 `sudo grep "Failed password for luca" /var/log/auth.log | awk '{print $9}' | sort | uniq -c | sort -nr`
 
-The pipeline filters failed authentication events, extracts the source IP address, groups identical addresses, counts their occurrences and sort the results by frequency
+The pipeline filters failed authentication events, extracts the source IP address, groups identical addresses, counts their occurrences and sorts the results by frequency.
 
 > **Note:** The `awk '{print $9}'` command relies on the log format observed in this lab. Different SSH log entries may have different field structure, so the position of the source IP should always be verified.
 
@@ -43,13 +43,13 @@ Comparing successful and failed authentication events helps distinguish normal a
 ## Timeline Correlation
 Authentication events were reviewed together with their timestamps to understand the sequence of SSH activity.
 
-For example, multiple failed authentication attempts followes by a succesful login can be more significant than an isolated failed attempt.
+For example, multiple failed authentication attempts followed by a successful login can be more significant than an isolated failed attempt.
 
 The timestamp, username, source IP address and authentication result can therefore be correlated to reconstruct the sequence of events and provide additional context during an investigation.
 
 ## What I Learned
 - How SSH authentication events are recorded in Linux logs;
 - How to identify successful and failed SSH login attempts;
-- How to filter log entries using command-line tools such ad `grep`, `awk`, `sort` and `uniq`;
+- How to filter log entries using command-line tools such as `grep`, `awk`, `sort` and `uniq`;
 - How to count authentication attempts by source IP address;
 - How timestamps and multiple log events can be correlated to reconstruct authentication activity.

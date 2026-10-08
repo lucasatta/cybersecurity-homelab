@@ -17,7 +17,7 @@ Both virtual machines use a NAT interface for Internet access and a second inter
 No default gateway is configured on the internal network interface, since communication between the two virtual machines happens within the same subnet.
 
 ## Connectivity Test
-Connectivity between the two virtual machines was verified using 'ping' from Kali Linux to ubuntu Server and vice versa.
+Connectivity between the two virtual machines was verified using 'ping' from Kali Linux to Ubuntu Server and vice versa.
 
 ## What I Learned
 - The difference between NAT and an internal network;
