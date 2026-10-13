@@ -59,10 +59,10 @@ Both machines have a NAT adapter for Internet access and a second adapter connec
 - [x] Perform basic Nmap enumeration
 - [x] Analyze ICMP, HTTP, and TCP traffic with Wireshark
 - [x] Practice SSH authentication log analysis
+- [x] Document Python scripts for security-related tasks
 
 ### In Progress
 
-- [ ] Document Python scripts for security-related tasks
 - [ ] Expand Linux and network analysis exercises
 
 ### Planned
