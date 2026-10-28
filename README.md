@@ -62,14 +62,15 @@ Both machines have a NAT adapter for Internet access and a second adapter connec
 - [x] Practice SSH authentication log analysis
 - [x] Document Python scripts for security-related tasks
 
+
 ### In Progress
 
+- [ ] Explore web security with Burp Suite
+- [ ] Practice with intentionally vulnerable web applications
 - [ ] Expand Linux and network analysis exercises
 
 ### Planned
 
-- [ ] Explore web security with Burp Suite
-- [ ] Practice with intentionally vulnerable web applications
 - [ ] Learn vulnerability assessment workflows
 - [ ] Develop basic penetration testing and reporting skills
 
