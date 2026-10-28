@@ -39,6 +39,7 @@ Both machines have a NAT adapter for Internet access and a second adapter connec
 | [Nmap Enumeration](docs/nmap-enumeration.md) | Basic port scanning, service identification, and version detection using Nmap. |
 | [Wireshark Analysis](docs/wireshark-analysis.md) | Analysis of ICMP, HTTP, and TCP traffic, including the three-way handshake. |
 | [SSH Log Analysis](docs/ssh-log-analysis.md) | Analysis of SSH authentication events and log filtering using Linux command-line tools. |
+| [Burp Suite & OWASP Juice Shop](docs/burp-suite-juice-shop.md) | HTTP traffic analysis, API endpoint testing, and SQL Injection identification using Burp Suite. |
 
 ## Tools and Technologies
 
