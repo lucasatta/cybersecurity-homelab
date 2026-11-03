@@ -121,6 +121,95 @@ Depending on the database permissions and application architecture, successful e
 
 A primary mitigation is to use parameterized queries or prepared statements instead of constructing SQL queries through string concatenation.
 
+## Authentication and Session Security
+
+### Authentication Testing
+The login endpoint was analyzed using Burp Suite Repeater:
+
+`POST /rest/user/login HTTP/1.1`
+
+Requests with valid and invalid credentials were compared.
+
+| Test | HTTP Status | Result |
+|---|---|---|
+| Valid credentials | 200 OK | Authentication data and a token returned |
+| Unregistered email | 401 Unauthorized | Generic error message |
+| Registered account with incorrect password | 401 Unauthorized | Same generic error message |
+
+Both unsuccessful login attempts returned the message:
+
+`Invalid email or password.`
+
+No user enumeration was observed through the HTTP status codes or error messages tested. This does not rule out other possible enumeration techniques.
+
+### Session and Token Testing
+After login, the authenticated endpoint `GET /rest/order-history` was examined by modifying the request headers in Burp Repeater.
+
+| Request Headers | HTTP Status | Result |
+|---|---|---|
+| Valid Authorization and Cookie | 200 OK | Order history returned |
+| Valid Authorization only, without Cookie | 200 OK | Order history returned |
+| Cookie only, without Authorization | 500 Internal Server Error | Request failed |
+| Invalid Authorization token | 500 Internal Server Error | Request failed |
+
+For this endpoint, a valid Authorization token was sufficient to retrieve order history, while the Cookie header was not required in the tested requests.
+
+Requests without a valid Authorization token did not return the protected order history. Instead, they produced `500 Internal Server Error` responses containing server-side error details, including internal file paths and stack traces.
+
+This indicates potentially excessive error information disclosure. A controlled authentication or authorization error response without internal implementation details would be preferable.
+
+> **Note:** These observations apply to the tested `/rest/order-history` endpoint and should not be generalized to every endpoint in the application.
+
+## Authorization and Order Access Testing
+
+### Test Setup
+Two accounts were used to investigate access controls:
+
+- **Account A:** One test order was created.
+- **Account B:** A separate account with no orders.
+
+Only accounts and order data created within the isolated lab were used.
+
+### Order History Access
+Both accounts requested:
+
+`GET /rest/order-history HTTP/1.1`
+
+| Authenticated Account | HTTP Status | Result |
+|---|---|---|
+| Account A | 200 OK | One order returned |
+| Account B | 200 OK | Empty `data` array |
+
+These results show that the order history endpoint returned different data according to the authenticated account in the tested scenario.
+
+The order returned for Account A included an `orderId` and information such as email, total price and purchased products.
+
+### Direct Order Tracking Access
+The order identifier from Account A's order history matched the identifier used by the order tracking endpoint:
+
+`GET /rest/track-order/<orderId> HTTP/1.1`
+
+The same order tracking URL was tested with different authentication headers.
+
+| Request Context | HTTP Status | Result |
+|---|---|---|
+| Original order tracking request | 200 OK | Account A's order details returned |
+| Account B's Authorization and Cookie headers | 200 OK | Account A's order details returned |
+| No Authorization or Cookie headers | 200 OK | Account A's order details returned |
+
+The response included order-related information, including email, products and total price.
+
+These tests demonstrate that the tracking endpoint returned the order details when the correct order identifier was provided, even without authentication.
+
+### Security Assessment
+This behavior raises a potential object-level access control concern, because a request associated with Account B, or with no authenticated session, could retrieve information about Account A's order.
+
+However, some order tracking systems intentionally allow access through a hard-to-guess identifier that acts as an access secret. The observed behavior alone therefore does **not** conclusively establish an Insecure Direct Object Reference (IDOR) or Broken Object Level Authorization (BOLA) vulnerability.
+
+The tests did not establish whether unauthenticated order tracking was intended, whether order identifiers could be guessed or enumerated, or whether an attacker could obtain identifiers belonging to other users.
+
+A more complete assessment would require understanding the application's intended authorization model and the exposure of order identifiers.
+
 ## What I Learned
 - How to intercept and inspect HTTP traffic using Burp Proxy and HTTP History;
 - How to modify and resend HTTP requests using Burp Repeater;
@@ -128,4 +217,10 @@ A primary mitigation is to use parameterized queries or prepared statements inst
 - How to analyze HTTP status codes, JSON responses and response lengths;
 - How to compare server responses using Burp Comparer;
 - How boolean conditions can help identify potential SQL Injection vulnerabilities;
+- How to compare successful and unsuccessful authentication responses;
+- How to test the role of Authorization and Cookie headers in authenticated requests;
+- How invalid authentication can reveal excessive server-side error details;
+- How to compare access to resources using separate test accounts;
+- How to examine direct object references in API endpoints;
+- Why observed access behavior must be distinguished from a confirmed IDOR vulnerability;
 - Why security findings should be supported by reproducible evidence rather than a single unexpected response.
