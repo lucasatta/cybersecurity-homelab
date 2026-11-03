@@ -1,5 +1,6 @@
 # Cybersecurity Homelab
-A personal cybersecurity homelab focused on hands-on learning in **networking, Linux, network traffic analysis, and security fundamentals**.
+
+A personal cybersecurity homelab focused on hands-on learning in **networking, Linux, network traffic analysis, web application security, and security fundamentals**.
 
 This repository documents the configuration of my lab environment, the exercises I perform, the tools I use, and the concepts I learn along the way.
 
@@ -28,7 +29,6 @@ Both machines have a NAT adapter for Internet access and a second adapter connec
 │         Internal network: cyberlab            │
 │                                               │
 └───────────────────────────────────────────────┘
-
 ```
 
 ## Lab Documentation
@@ -39,13 +39,15 @@ Both machines have a NAT adapter for Internet access and a second adapter connec
 | [Nmap Enumeration](docs/nmap-enumeration.md) | Basic port scanning, service identification, and version detection using Nmap. |
 | [Wireshark Analysis](docs/wireshark-analysis.md) | Analysis of ICMP, HTTP, and TCP traffic, including the three-way handshake. |
 | [SSH Log Analysis](docs/ssh-log-analysis.md) | Analysis of SSH authentication events and log filtering using Linux command-line tools. |
-| [Burp Suite & OWASP Juice Shop](docs/burp-suite-juice-shop.md) | HTTP traffic analysis, API endpoint testing, and SQL Injection identification using Burp Suite. |
+| [Burp Suite & OWASP Juice Shop](docs/burp-suite-juice-shop.md) | HTTP traffic analysis, API testing, SQL Injection, authentication, session security, and authorization testing using Burp Suite. |
 
 ## Tools and Technologies
 
 - **Virtualization:** Oracle VirtualBox
 - **Operating systems:** Kali Linux, Ubuntu Server
 - **Network analysis:** Nmap, Wireshark
+- **Web application security:** Burp Suite Community Edition, OWASP Juice Shop
+- **Containerization:** Docker
 - **Services:** SSH, Apache HTTP Server
 - **Command-line tools:** `grep`, `awk`, `sort`, `uniq`, `journalctl`
 - **Programming:** Python (basic scripting and automation)
@@ -61,17 +63,22 @@ Both machines have a NAT adapter for Internet access and a second adapter connec
 - [x] Analyze ICMP, HTTP, and TCP traffic with Wireshark
 - [x] Practice SSH authentication log analysis
 - [x] Document Python scripts for security-related tasks
-
+- [x] Explore web security with Burp Suite
+- [x] Practice with intentionally vulnerable web applications
+- [x] Test SQL Injection using boolean-based conditions
+- [x] Analyze authentication responses and session handling
+- [x] Investigate API authorization and object-level access controls
 
 ### In Progress
 
-- [ ] Explore web security with Burp Suite
-- [ ] Practice with intentionally vulnerable web applications
 - [ ] Expand Linux and network analysis exercises
+- [ ] Develop vulnerability assessment methodology
+- [ ] Improve technical security reporting skills
 
 ### Planned
 
-- [ ] Learn vulnerability assessment workflows
+- [ ] Practice additional web application security testing techniques
+- [ ] Explore vulnerability assessment workflows
 - [ ] Develop basic penetration testing and reporting skills
 
 ## Scope and Ethics
